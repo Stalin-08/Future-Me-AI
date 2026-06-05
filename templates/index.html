@@ -1,0 +1,33 @@
+
+<div class="card shadow p-4">
+    <h1 class="text-center mb-4">FutureMe AI Predictor</h1>
+
+    <form action="/predict" method="POST">
+
+        <div class="mb-3">
+            <label class="form-label">Study Hours</label>
+            <input
+                type="number"
+                name="study"
+                class="form-control"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Sleep Hours</label>
+            <input
+                type="number"
+                name="sleep"
+                class="form-control"
+                required>
+        </div>
+
+        <button
+            type="submit"
+            class="btn btn-primary w-100">
+            Predict My Future
+        </button>
+
+    </form>
+</div>
+

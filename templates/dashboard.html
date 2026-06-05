@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="text-center mt-4">
+        Dashboard
+    </h1>
+
+    <p class="text-center">
+        Future prediction charts will appear here.
+    </p>
+</div>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+{% endblock %}
