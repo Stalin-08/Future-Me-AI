@@ -1,17 +1,40 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutureMe AI Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
 
-{% block content %}
+    <nav>
+        <h2>FutureMe AI</h2>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/scenario">Scenario Comparison</a></li>
+        </ul>
+    </nav>
 
-<div class="container">
-    <h1 class="text-center mt-4">
-        Dashboard
-    </h1>
+    <div class="container">
+        <h1>Your Future Insights</h1>
 
-    <p class="text-center">
-        Future prediction charts will appear here.
-    </p>
-</div>
+        <div class="card">
+            <h3>Career Growth Prediction</h3>
+            <p>View your projected career path based on your current skills.</p>
+        </div>
 
-<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+        <div class="card">
+            <h3>Salary Forecast</h3>
+            <p>Estimated salary growth over the next 5 years.</p>
+        </div>
 
-{% endblock %}
+        <div class="card">
+            <h3>Skill Recommendations</h3>
+            <p>Suggested skills to improve your future opportunities.</p>
+        </div>
+    </div>
+
+</body>
+</html>
