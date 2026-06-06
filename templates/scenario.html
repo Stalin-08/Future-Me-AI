@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scenario Comparison - FutureMe AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav>
+        <h2>FutureMe AI</h2>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/scenario">Scenario Comparison</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Compare Future Scenarios</h1>
+
+        <form method="POST" action="/scenario">
+            <div class="card">
+                <h3>Scenario A</h3>
+
+                <label>Current Skill Level</label>
+                <input type="number" name="skill_a" required>
+
+                <label>Years of Experience</label>
+                <input type="number" name="experience_a" required>
+            </div>
+
+            <div class="card">
+                <h3>Scenario B</h3>
+
+                <label>Current Skill Level</label>
+                <input type="number" name="skill_b" required>
+
+                <label>Years of Experience</label>
+                <input type="number" name="experience_b" required>
+            </div>
+
+            <button type="submit">Compare Scenarios</button>
+        </form>
+
+        {% if result %}
+        <div class="card">
+            <h2>Comparison Result</h2>
+            <p>{{ result }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
