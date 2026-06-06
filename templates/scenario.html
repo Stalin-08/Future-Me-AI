@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,49 +9,64 @@
 </head>
 <body>
 
-    <nav>
-        <h2>FutureMe AI</h2>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/scenario">Scenario Comparison</a></li>
-        </ul>
-    </nav>
+```
+<nav>
+    <h2>FutureMe AI</h2>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/scenario">Scenario Comparison</a></li>
+    </ul>
+</nav>
 
-    <div class="container">
-        <h1>Compare Future Scenarios</h1>
+<div class="container">
+    <h1>Future Career Prediction</h1>
 
-        <form method="POST" action="/scenario">
-            <div class="card">
-                <h3>Scenario A</h3>
-
-                <label>Current Skill Level</label>
-                <input type="number" name="skill_a" required>
-
-                <label>Years of Experience</label>
-                <input type="number" name="experience_a" required>
-            </div>
-
-            <div class="card">
-                <h3>Scenario B</h3>
-
-                <label>Current Skill Level</label>
-                <input type="number" name="skill_b" required>
-
-                <label>Years of Experience</label>
-                <input type="number" name="experience_b" required>
-            </div>
-
-            <button type="submit">Compare Scenarios</button>
-        </form>
-
-        {% if result %}
+    <form id="predictionForm">
         <div class="card">
-            <h2>Comparison Result</h2>
-            <p>{{ result }}</p>
+            <h3>Your Profile</h3>
+
+            <label>Skill Level (1-10)</label>
+            <input type="number" id="skill" min="1" max="10" required>
+
+            <label>Experience (Years)</label>
+            <input type="number" id="experience" min="0" required>
         </div>
-        {% endif %}
+
+        <button type="submit">Predict Future</button>
+    </form>
+
+    <div class="card" id="resultCard" style="display:none;">
+        <h2>Prediction Result</h2>
+        <p id="result"></p>
     </div>
+</div>
+
+<script>
+    document.getElementById("predictionForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const skill = document.getElementById("skill").value;
+        const experience = document.getElementById("experience").value;
+
+        const response = await fetch("/api/predict", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                skill: skill,
+                experience: experience
+            })
+        });
+
+        const data = await response.json();
+
+        document.getElementById("resultCard").style.display = "block";
+        document.getElementById("result").innerText = data.prediction;
+    });
+</script>
+```
 
 </body>
 </html>
