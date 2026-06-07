@@ -35,18 +35,23 @@ def scenario_page():
 # BACKEND API ROUTES
 # =========================
 
-@app.route("/predict")
+@app.route("/predict", methods=["POST"])
 def predict():
 
+    study = int(request.form["study"])
+    sleep = int(request.form["sleep"])
+
     result = calculate_future_score(
-        study_hours=3,
-        sleep_hours=8,
+        study_hours=study,
+        sleep_hours=sleep,
         exercise_days=4,
         projects=2
     )
 
-    return jsonify(result)
-
+    return render_template(
+    "result.html",
+    result=result
+)
 
 @app.route("/scenario")
 def scenario():

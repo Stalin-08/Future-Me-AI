@@ -1,19 +1,255 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
+
 <head>
-    <title>Prediction Result</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutureMe AI Dashboard</title>
+
+```
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+    body{
+        min-height:100vh;
+        background:linear-gradient(
+            135deg,
+            #667eea,
+            #764ba2);
+        padding:40px;
+    }
+
+    .glass-card{
+        background:rgba(255,255,255,.95);
+        backdrop-filter:blur(15px);
+        border-radius:25px;
+        box-shadow:0 15px 35px rgba(0,0,0,.2);
+    }
+
+    .metric-card{
+        border:none;
+        border-radius:20px;
+        padding:25px;
+        text-align:center;
+        transition:.3s;
+    }
+
+    .metric-card:hover{
+        transform:translateY(-5px);
+    }
+
+    .metric-number{
+        font-size:40px;
+        font-weight:700;
+    }
+
+    .progress{
+        height:30px;
+        border-radius:20px;
+    }
+
+    .back-btn{
+        border-radius:15px;
+        font-weight:bold;
+        padding:12px;
+    }
+
+</style>
+```
+
 </head>
+
 <body>
 
-    <h1>Future Prediction Result</h1>
+<div class="container">
 
-    <p>Career Score: {{ result['career_score'] }}</p>
+```
+<div class="glass-card p-5">
 
-    <p>Burnout Risk: {{ result['burnout_risk'] }}</p>
+    <div class="text-center mb-4">
 
-    <p>Future Status: {{ result['future_status'] }}</p>
+        <h1 class="text-primary">
+            <i class="bi bi-robot"></i>
+            FutureMe AI Analytics
+        </h1>
 
-    <a href="/">Go Back</a>
+        <p class="text-muted">
+            AI Powered Future Growth Assessment
+        </p>
+
+    </div>
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-4">
+
+            <div class="metric-card bg-success text-white">
+
+                <h5>Career Score</h5>
+
+                <div class="metric-number">
+                    {{ result.career_score }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="metric-card bg-danger text-white">
+
+                <h5>Burnout Risk</h5>
+
+                <div class="metric-number">
+                    {{ result.burnout_risk }}%
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="metric-card bg-primary text-white">
+
+                <h5>Future Status</h5>
+
+                <div class="fs-3 fw-bold">
+                    {{ result.future_status }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <h4 class="mb-3">Career Readiness</h4>
+
+    <div class="progress mb-4">
+
+        <div class="progress-bar bg-success"
+             style="width: {{ result.career_score if result.career_score <= 100 else 100 }}%">
+
+            {{ result.career_score }}
+
+        </div>
+
+    </div>
+
+    <h4 class="mb-3">Burnout Indicator</h4>
+
+    <div class="progress mb-5">
+
+        <div class="progress-bar bg-danger"
+             style="width: {{ result.burnout_risk }}%">
+
+            {{ result.burnout_risk }}%
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <canvas id="futureChart"></canvas>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card shadow border-0 p-4">
+
+                <h4 class="mb-3">
+                    AI Recommendation
+                </h4>
+
+                {% if result.future_status == "High Growth" %}
+
+                <div class="alert alert-success">
+
+                    🚀 Excellent habits detected.
+                    Continue your current routine and focus on advanced projects.
+
+                </div>
+
+                {% else %}
+
+                <div class="alert alert-warning">
+
+                    ⚠ Improve study consistency, sleep quality,
+                    and project participation to boost future growth.
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="text-center mt-5">
+
+        <a href="/"
+           class="btn btn-primary btn-lg back-btn">
+
+            <i class="bi bi-arrow-left-circle-fill"></i>
+            Predict Again
+
+        </a>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<script>
+
+new Chart(
+document.getElementById('futureChart'),
+{
+    type:'doughnut',
+
+    data:{
+        labels:[
+            'Career Growth',
+            'Burnout Risk'
+        ],
+
+        datasets:[{
+            data:[
+                {{ result.career_score }},
+                {{ result.burnout_risk }}
+            ]
+        }]
+    },
+
+    options:{
+        responsive:true,
+        plugins:{
+            legend:{
+                position:'bottom'
+            }
+        }
+    }
+});
+
+</script>
 
 </body>
 </html>

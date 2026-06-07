@@ -1,56 +1,214 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scenario Comparison - FutureMe AI</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Future Scenario Simulator</title>
+
+```
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+    body{
+        background:linear-gradient(135deg,#667eea,#764ba2);
+        min-height:100vh;
+        padding:40px;
+    }
+
+    .glass-card{
+        background:rgba(255,255,255,.95);
+        border-radius:25px;
+        backdrop-filter:blur(15px);
+        box-shadow:0 15px 35px rgba(0,0,0,.15);
+    }
+
+    .scenario-card{
+        border-radius:20px;
+        padding:25px;
+        background:white;
+        box-shadow:0 10px 25px rgba(0,0,0,.1);
+    }
+
+    .form-control{
+        border-radius:12px;
+        height:50px;
+    }
+
+    .compare-btn{
+        height:55px;
+        font-size:18px;
+        font-weight:bold;
+        border-radius:15px;
+    }
+
+</style>
+```
+
 </head>
+
 <body>
 
-    <nav>
-        <h2>FutureMe AI</h2>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/scenario">Scenario Comparison</a></li>
-        </ul>
-    </nav>
+<div class="container">
 
-    <div class="container">
-        <h1>Compare Future Scenarios</h1>
+```
+<div class="glass-card p-5">
 
-        <form method="POST" action="/scenario">
-            <div class="card">
-                <h3>Scenario A</h3>
+    <div class="text-center mb-5">
 
-                <label>Current Skill Level</label>
-                <input type="number" name="skill_a" required>
+        <h1 class="text-primary">
+            <i class="bi bi-diagram-3-fill"></i>
+            Future Scenario Simulator
+        </h1>
 
-                <label>Years of Experience</label>
-                <input type="number" name="experience_a" required>
-            </div>
+        <p class="text-muted">
+            Compare two future paths and discover which lifestyle creates the best outcome.
+        </p>
 
-            <div class="card">
-                <h3>Scenario B</h3>
-
-                <label>Current Skill Level</label>
-                <input type="number" name="skill_b" required>
-
-                <label>Years of Experience</label>
-                <input type="number" name="experience_b" required>
-            </div>
-
-            <button type="submit">Compare Scenarios</button>
-        </form>
-
-        {% if result %}
-        <div class="card">
-            <h2>Comparison Result</h2>
-            <p>{{ result }}</p>
-        </div>
-        {% endif %}
     </div>
 
+    <form method="POST" action="/scenario">
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+
+                <div class="scenario-card">
+
+                    <h3 class="text-success mb-4">
+                        Scenario A
+                    </h3>
+
+                    <label class="fw-bold">Skill Level</label>
+                    <input type="number"
+                           name="skill_a"
+                           class="form-control mb-3"
+                           required>
+
+                    <label class="fw-bold">Experience (Years)</label>
+                    <input type="number"
+                           name="experience_a"
+                           class="form-control"
+                           required>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="scenario-card">
+
+                    <h3 class="text-primary mb-4">
+                        Scenario B
+                    </h3>
+
+                    <label class="fw-bold">Skill Level</label>
+                    <input type="number"
+                           name="skill_b"
+                           class="form-control mb-3"
+                           required>
+
+                    <label class="fw-bold">Experience (Years)</label>
+                    <input type="number"
+                           name="experience_b"
+                           class="form-control"
+                           required>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="text-center mt-5">
+
+            <button
+                type="submit"
+                class="btn btn-primary compare-btn px-5">
+
+                <i class="bi bi-lightning-charge-fill"></i>
+                Compare Futures
+
+            </button>
+
+        </div>
+
+    </form>
+
+    {% if result %}
+
+    <div class="mt-5">
+
+        <div class="alert alert-success text-center">
+
+            <h4>
+                Comparison Result
+            </h4>
+
+            <p class="mb-0">
+                {{ result }}
+            </p>
+
+        </div>
+
+        <div class="row mt-4">
+
+            <div class="col-md-8 mx-auto">
+
+                <canvas id="scenarioChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+```
+
+</div>
+
+<script>
+
+const ctx = document.getElementById('scenarioChart');
+
+if(ctx){
+
+new Chart(ctx,{
+type:'bar',
+
+data:{
+labels:[
+'Scenario A',
+'Scenario B'
+],
+
+datasets:[{
+label:'Future Potential',
+data:[70,90]
+}]
+},
+
+options:{
+responsive:true
+}
+});
+
+}
+
+</script>
+
 </body>
+
 </html>
