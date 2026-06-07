@@ -12,25 +12,39 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 
-# Frontend Home Page
+# Home Page
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-@app.route("/predict")
+# Prediction Route
+@app.route("/predict", methods=["GET", "POST"])
 def predict():
 
-    result = calculate_future_score(
-        study_hours=3,
-        sleep_hours=8,
-        exercise_days=4,
-        projects=2
-    )
+    if request.method == "POST":
 
-    return jsonify(result)
+        study = int(request.form["study"])
+        sleep = int(request.form["sleep"])
+        exercise = int(request.form["exercise"])
+        projects = int(request.form["projects"])
+
+        result = calculate_future_score(
+            study_hours=study,
+            sleep_hours=sleep,
+            exercise_days=exercise,
+            projects=projects
+        )
+
+        return render_template(
+            "result.html",
+            result=result
+        )
+
+    return render_template("index.html")
 
 
+# Scenario Comparison
 @app.route("/scenario")
 def scenario():
 
@@ -54,6 +68,7 @@ def scenario():
     })
 
 
+# History Route
 @app.route("/history")
 def history():
 
@@ -72,6 +87,7 @@ def history():
     return jsonify(results)
 
 
+# API Route
 @app.route("/api/predict", methods=["POST"])
 def api_predict():
 
