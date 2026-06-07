@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from predictor import calculate_future_score
 from models import db, Prediction
 
@@ -12,9 +12,10 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 
+# Frontend Home Page
 @app.route("/")
 def home():
-    return "FutureMe AI Backend Running"
+    return render_template("index.html")
 
 
 @app.route("/predict")
