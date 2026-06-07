@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+</head>
+<body>
+
+    <h1>Future Prediction Result</h1>
+
+    <p>Career Score: {{ result['career_score'] }}</p>
+
+    <p>Burnout Risk: {{ result['burnout_risk'] }}</p>
+
+    <p>Future Status: {{ result['future_status'] }}</p>
+
+    <a href="/">Go Back</a>
+
+</body>
+</html>
